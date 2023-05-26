@@ -6,7 +6,7 @@ export default function App() {
     const [apiResponse, setApiResponse] = useState([]);
 
     const fetchData = () => {
-        fetch('http://localhost:4000/update')
+        fetch('http://localhost:4000/vacation')
         .then(response => response.json())
         .then(data => setApiResponse(data))
     }
@@ -14,19 +14,6 @@ export default function App() {
 
     return (
         <div className="container">
-        <div className='container-md'>
-          <form action='http://localhost:4000/' method='post'>
-          <div class="mb-3">
-            <label for="title" class="form-label">Things to do:</label>
-            <input type="text" class="form-control" id="title" placeholder="stuff to bring" name='title'/>
-          </div>
-          <div class="mb-3">
-            <label for="description" class="form-label">description</label>
-            <textarea class="form-control" id="description" rows="3" name='description'></textarea>
-          </div>
-          <input type='submit' value='Save' />
-          </form>
-        </div>
         <div className='container-md'>
           {apiResponse.map((data) => (
             <div class="form-check">
@@ -39,6 +26,19 @@ export default function App() {
           <div>
           <button type='button' name="refresh" onClick={fetchData}>refresh</button>
           </div>
+        </div>
+        <div className='container-md'>
+          <form action='http://localhost:4000/vacation' method='post'>
+          <div class="mb-3">
+            <label for="title" class="form-label">Things to do:</label>
+            <input type="text" class="form-control" id="title" placeholder="stuff to bring" name='title'/>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">description</label>
+            <textarea class="form-control" id="description" rows="3" name='description'></textarea>
+          </div>
+          <input type='submit' value='Save' />
+          </form>
         </div>
       </div>
     );

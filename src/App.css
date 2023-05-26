@@ -32,4 +32,9 @@ nav .nav-bar {
 
 .options {
   display: flex;
+  gap: 10px;
+}
+
+h1 {
+  text-align: center;
 }
