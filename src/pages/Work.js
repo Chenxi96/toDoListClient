@@ -4,12 +4,25 @@ import '../App.css';
 export default function App() {
 
     const [apiWork, setWork] = useState([]);
+    const [sendApi, setSendApi] = useState('');
 
     useEffect(() => {
       fetch('http://localhost:4000/work')
       .then(response => response.json())
       .then(data => setWork(data))
     }, []);
+
+    useEffect(() => {
+      fetch('http://localhost:4000/workdelete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(sendApi)
+      })
+        .then(res => res.json())
+        .catch(err => console.log(err))
+    }, [sendApi])
 
     const dateString = (string) => {
       return new Date(string).toLocaleDateString([], {
@@ -30,7 +43,8 @@ export default function App() {
           {apiWork.map((data) => (
             <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={() => {
-              document.getElementById('flexCheckDefault').style.textDecoration = 'line-through'
+              setSendApi(data)
+              window.location.reload(false)
             }}/>
             <label class="form-check-label" for="flexCheckDefault">
             {`Title: ${data.Title} Description: ${data.Description} Date: ${dateString(data.Date)}`}

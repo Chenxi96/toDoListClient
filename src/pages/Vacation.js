@@ -4,7 +4,7 @@ import '../App.css';
 export default function App() {
 
     const [apiVacation, setVacation] = useState([]);
-    const [sendApi, setSendApi] = useState();
+    const [sendApi, setSendApi] = useState('');
 
     useEffect(() => {
       fetch('http://localhost:4000/vacation')
