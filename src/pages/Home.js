@@ -1,30 +1,40 @@
 import { useEffect, useState } from "react";
 import '../App.css';
 
-export default function App() {
+export default function App(props) {
 
-    const [apiResponse, setApiResponse] = useState([]);
+    const [apiHome, setHome] = useState([]);
 
     useEffect(() => {
       fetch('http://localhost:4000/home')
       .then(response => response.json())
-      .then(data => setApiResponse(data))
+      .then(data => setHome(data))
     }, [])
 
-
+    const dateString = (string) => {
+      return new Date(string).toLocaleDateString([], {
+        month: 'long',
+        year: 'numeric',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+    }
 
     return (
         <div className="container">
-        <div className='container-md'>
-          {apiResponse.map((data) => (
+       <div className='container-md'>
+          {apiHome.map((data) => (
             <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
             <label class="form-check-label" for="flexCheckDefault">
-              {`Title: ${data.Title} Description: ${data.Description} Date: ${data.Date}`}
+              {`Title: ${data.Title} Description: ${data.Description} Date: ${dateString(data.Date)}`}
             </label>
           </div>
           ))}
         </div>
+
+        {console.log(props)}
         <div className='container-md'>
           <form action='http://localhost:4000/home' method='post'>
           <div class="mb-3">
